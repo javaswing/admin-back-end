@@ -1,1 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/admin-local?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    username: root
+    password: 123456
+  jpa:
+    show-sql: true
+  mvc:
+    path-match:
+      matching-strategy: ant_path_matcher
+  flyway:
+    enabled: false
+    locations:
+      - classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 1
+    baseline-description: init-base
 
+mybatis-plus:
+  global-config:
+    #    https://github.com/baomidou/mybatis-plus/issues/1386
+    db-config:
+      logic-delete-value: now()
+      logic-not-delete-value: 'NULL'
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启SQL语句打印

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxd.admin.mapper.SysMenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.zxd.admin.entity.SysMenu">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+            <result property="perms" column="perms" jdbcType="VARCHAR"/>
+            <result property="viewPath" column="view_path" jdbcType="VARCHAR"/>
+            <result property="isShow" column="is_show" jdbcType="TINYINT"/>
+            <result property="createAt" column="create_at" jdbcType="TIMESTAMP"/>
+            <result property="updateAt" column="update_at" jdbcType="TIMESTAMP"/>
+            <result property="deleteAt" column="delete_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,parent_id,name,
+        type,icon,remark,
+        order_num,perms,view_path,
+        is_show,create_at,update_at,
+        delete_at
+    </sql>
+</mapper>

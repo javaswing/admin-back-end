@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxd.admin.mapper.SysRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.zxd.admin.entity.SysRole">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="uniqueKey" column="unique_key" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="orderNum" column="order_num" jdbcType="INTEGER"/>
+            <result property="createAt" column="create_at" jdbcType="TIMESTAMP"/>
+            <result property="updateAt" column="update_at" jdbcType="TIMESTAMP"/>
+            <result property="deleteAt" column="delete_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,unique_key,
+        status,remark,order_num,
+        create_at,update_at,delete_at
+    </sql>
+</mapper>
