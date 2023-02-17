@@ -3,11 +3,11 @@
 一个匹配antd-pro后台服务要求的，通用权限管理后台模块
 
 ## 技术栈
-- [ ] MyBatis Plus
+- [x] MyBatis Plus
 - [ ] Spring Security
 - [x] lombok
-- [ ] flyway (for database migration)
-- [ ] swagger3
+- [x] flyway (for database migration)
+- [x] swagger3
 - [x] hutool
 
 ## 特色通用功能
