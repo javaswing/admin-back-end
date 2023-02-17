@@ -1,5 +1,7 @@
 package com.zxd.admin.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zxd.admin.core.query.AbstractPageQuery;
 import com.zxd.admin.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface SysUserService extends IService<SysUser> {
 
+
+    Page<SysUser> getUserList(AbstractPageQuery query);
 }
