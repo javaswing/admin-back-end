@@ -1,4 +1,4 @@
-package com.zxd.admin.dto.admin;
+package com.zxd.admin.dto.admin.user;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

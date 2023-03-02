@@ -1,13 +1,12 @@
 package com.zxd.admin.core.vo;
 
+import com.zxd.admin.exception.error.ErrorCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import static com.zxd.admin.enums.StatusCodeEnum.SUCCESS;
 
 
 @Data
@@ -27,15 +26,15 @@ public class BaseResponseVO<T> {
     private T data;
 
     public static <T> BaseResponseVO<T> ok(T data) {
-        return genBaseResponse(SUCCESS.getCode(), SUCCESS.getDesc(), data);
+        return genBaseResponse(ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.message(), data);
     }
 
     public static <T> BaseResponseVO ok() {
-        return genBaseResponse(SUCCESS.getCode(), SUCCESS.getDesc(), null);
+        return genBaseResponse(ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.message(), null);
     }
 
     public static <T> BaseResponseVO ok(String msg) {
-        return genBaseResponse(SUCCESS.getCode(), msg, null);
+        return genBaseResponse(ErrorCode.SUCCESS.code(), msg, null);
     }
 
     public static <T> BaseResponseVO fail(int code, T data, String message) {

@@ -2,6 +2,9 @@ package com.zxd.admin.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zxd.admin.core.query.AbstractPageQuery;
+import com.zxd.admin.dto.admin.user.AddUserCommand;
+import com.zxd.admin.dto.admin.user.UpdateUserCommand;
+import com.zxd.admin.dto.admin.user.UserDetailDTO;
 import com.zxd.admin.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,4 +17,15 @@ public interface SysUserService extends IService<SysUser> {
 
 
     Page<SysUser> getUserList(AbstractPageQuery query);
+
+    void addUser(AddUserCommand command);
+
+    void updateUser(UpdateUserCommand command);
+
+
+    boolean isAccountDuplicated(String account);
+
+    boolean isMobileDuplicated(String mobile, Long userId);
+
+    boolean isEmailDuplicated(String email, Long userId);
 }

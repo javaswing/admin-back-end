@@ -4,16 +4,20 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zxd.admin.core.base.BaseController;
 import com.zxd.admin.core.vo.BaseResponseVO;
 import com.zxd.admin.core.vo.PageVO;
-import com.zxd.admin.dto.admin.SearchUserQueryDTO;
+import com.zxd.admin.dto.admin.user.AddUserCommand;
+import com.zxd.admin.dto.admin.user.SearchUserQueryDTO;
+import com.zxd.admin.dto.admin.user.UpdateUserCommand;
+import com.zxd.admin.dto.admin.user.UserDetailDTO;
 import com.zxd.admin.entity.SysUser;
 import com.zxd.admin.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Api(tags = "系统用户接口")
@@ -31,6 +35,27 @@ public class SysUserController extends BaseController {
           Page<SysUser> page =  sysUserService.getUserList(query);
           PageVO result = new PageVO<>(page.getRecords());
           return BaseResponseVO.ok(result);
+    }
+
+    @ApiOperation(value = "新增一个用户")
+    @PostMapping
+    public BaseResponseVO<?> add(@Validated @RequestBody AddUserCommand command) {
+        sysUserService.addUser(command);
+        return BaseResponseVO.ok();
+    }
+
+    @ApiOperation(value = "更新一个用户")
+    @PutMapping
+    public BaseResponseVO<?> update(@Validated @RequestBody UpdateUserCommand command) {
+        sysUserService.updateUser(command);
+        return BaseResponseVO.ok();
+    }
+
+    @ApiOperation(value = "删除用户")
+    @DeleteMapping("/userIds")
+    public BaseResponseVO<?> remove(@PathVariable List<Long> ids) {
+
+        return BaseResponseVO.ok();
     }
 
 }
