@@ -8,9 +8,9 @@ import lombok.Data;
 
 @Data
 public class SearchUserQueryDTO extends AbstractPageQuery {
-    private Long userId;
+    private Long id;
 
-    private String userName;
+    private String account;
 
     private String mobile;
 
@@ -20,12 +20,13 @@ public class SearchUserQueryDTO extends AbstractPageQuery {
     public QueryWrapper toQueryWrapper() {
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
 
-        queryWrapper.like(StrUtil.isNotEmpty(userName), "username", userName)
+        queryWrapper.like(StrUtil.isNotEmpty(account), "account", account)
                 .like(StrUtil.isNotEmpty(mobile), "mobile", mobile)
                 .like(StrUtil.isNotEmpty(email), "email", email)
-                .eq(userId != null, "id", userId);
+                .eq(id != null, "id", id);
 
         this.addTimeCondition(queryWrapper, "create_at");
+        this.addSortCondition(queryWrapper);
         return queryWrapper;
     }
 }

@@ -14,15 +14,15 @@ import java.util.Map;
 public abstract class AbstractQuery {
     protected String orderByColumn;
 
-    protected String isAsc;
+    protected String orderType;
 
     protected Date beginTime;
 
     protected Date endTime;
 
-    private static final String ASC = "ascending";
+    private static final String ASC = "ascend";
 
-    private static final String DESC = "descending";
+    private static final String DESC = "descend";
 
     protected Map<String, String> filedOverride = MapUtil.empty();
 
@@ -59,10 +59,10 @@ public abstract class AbstractQuery {
 
     public boolean convertSortDirection() {
         boolean orderDirection = true;
-        if (StrUtil.isNotEmpty(isAsc)) {
-            if (ASC.equals(isAsc)) {
+        if (StrUtil.isNotEmpty(orderType)) {
+            if (ASC.equals(orderType)) {
                 orderDirection = true;
-            } else if (DESC.equals(isAsc)) {
+            } else if (DESC.equals(orderType)) {
                 orderDirection = false;
             }
         }

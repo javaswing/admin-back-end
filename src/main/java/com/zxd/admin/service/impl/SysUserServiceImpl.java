@@ -2,9 +2,11 @@ package com.zxd.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zxd.admin.constant.GlobalConstants;
 import com.zxd.admin.core.query.AbstractPageQuery;
 import com.zxd.admin.dto.admin.user.AddUserCommand;
 import com.zxd.admin.dto.admin.user.UpdateUserCommand;
@@ -36,6 +38,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     public void addUser(AddUserCommand command) {
         if(checkUnique(command)) {
             SysUser user = BeanUtil.copyProperties(command,SysUser.class, "userId");
+            user.setPassword(SecureUtil.md5(GlobalConstants.INIT_PWD));
             this.baseMapper.insert(user);
         }
     }

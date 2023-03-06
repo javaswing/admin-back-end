@@ -1,5 +1,6 @@
 package com.zxd.admin.controller.admin;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zxd.admin.core.base.BaseController;
 import com.zxd.admin.core.vo.BaseResponseVO;
@@ -7,9 +8,9 @@ import com.zxd.admin.core.vo.PageVO;
 import com.zxd.admin.dto.admin.user.AddUserCommand;
 import com.zxd.admin.dto.admin.user.SearchUserQueryDTO;
 import com.zxd.admin.dto.admin.user.UpdateUserCommand;
-import com.zxd.admin.dto.admin.user.UserDetailDTO;
 import com.zxd.admin.entity.SysUser;
 import com.zxd.admin.service.SysUserService;
+import com.zxd.admin.vo.admin.SysUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Api(tags = "系统用户接口")
@@ -26,14 +28,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysUserController extends BaseController {
 
-    @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    public SysUserController(SysUserService sysUserService) {
+        this.sysUserService = sysUserService;
+    }
 
     @ApiOperation(value = "获取系统用户列表")
     @GetMapping("/list")
-    public BaseResponseVO<PageVO> list(SearchUserQueryDTO query) {
+    public BaseResponseVO<PageVO<SysUserVO>> list(SearchUserQueryDTO query) {
           Page<SysUser> page =  sysUserService.getUserList(query);
-          PageVO result = new PageVO<>(page.getRecords());
+          PageVO result = new PageVO<>(page.getRecords().stream().map(o -> BeanUtil.toBean(o, SysUserVO.class)).collect(Collectors.toList()));
           return BaseResponseVO.ok(result);
     }
 
@@ -54,7 +60,6 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "删除用户")
     @DeleteMapping("/userIds")
     public BaseResponseVO<?> remove(@PathVariable List<Long> ids) {
-
         return BaseResponseVO.ok();
     }
 

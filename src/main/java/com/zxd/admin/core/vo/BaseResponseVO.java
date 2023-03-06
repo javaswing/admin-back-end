@@ -1,6 +1,6 @@
 package com.zxd.admin.core.vo;
 
-import com.zxd.admin.exception.error.ErrorCode;
+import com.zxd.admin.enums.ResponseShowType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,40 +16,56 @@ import lombok.NoArgsConstructor;
 @ApiModel(value = "BaseResponseVO", description = "通用前端交互信息结构")
 public class BaseResponseVO<T> {
 
-    @ApiModelProperty(value = "状态码", example = "200, 401")
-    private int code;
-
-    @ApiModelProperty(value = "提示信息")
-    private String message;
+    @ApiModelProperty(value = "执行结果", example = "true、 false")
+    private boolean success;
 
     @ApiModelProperty(value = "数据")
     private T data;
 
+    @ApiModelProperty(value = "错误状态码", example = "401")
+    private int errorCode;
+
+    @ApiModelProperty(value = "执行错误提示信息")
+    private String errorMessage;
+
+    @ApiModelProperty(value = "弹窗提示类型")
+    private ResponseShowType showType;
+
+
     public static <T> BaseResponseVO<T> ok(T data) {
-        return genBaseResponse(ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.message(), data);
+        return BaseResponseVO.<T>builder()
+                .success(true)
+                .data(data)
+                .showType(ResponseShowType.SILENT)
+                .build();
+    }
+
+    public static <T> BaseResponseVO<T> ok(T data, ResponseShowType type) {
+        return BaseResponseVO.<T>builder()
+                .success(true)
+                .data(data)
+                .showType(type)
+                .build();
     }
 
     public static <T> BaseResponseVO ok() {
-        return genBaseResponse(ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.message(), null);
-    }
-
-    public static <T> BaseResponseVO ok(String msg) {
-        return genBaseResponse(ErrorCode.SUCCESS.code(), msg, null);
-    }
-
-    public static <T> BaseResponseVO fail(int code, T data, String message) {
-        return genBaseResponse(code, message, data);
-    }
-
-    public static <T> BaseResponseVO fail(int code) {
-        return genBaseResponse(code, null, null);
-    }
-
-
-    private static <T> BaseResponseVO<T> genBaseResponse(Integer code, String message, T data) {
         return BaseResponseVO.<T>builder()
-                .code(code)
-                .message(message)
+                .success(true)
+                .showType(ResponseShowType.SILENT)
+                .build();
+    }
+
+
+    public static <T> BaseResponseVO fail(int errorCode, T data, String errorMsg, ResponseShowType showType) {
+        return genBaseResponse(data, false, errorCode, errorMsg, showType);
+    }
+
+    private static <T> BaseResponseVO<T> genBaseResponse(T data, boolean success, Integer errorCode, String errorMessage, ResponseShowType showType) {
+        return BaseResponseVO.<T>builder()
+                .errorCode(errorCode)
+                .errorMessage(errorMessage)
+                .success(success)
+                .showType(showType)
                 .data(data).build();
     }
 }
