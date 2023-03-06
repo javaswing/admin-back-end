@@ -8,6 +8,7 @@ public enum Module {
     /**
      * 用户模块
      */
+    COMMON(0),
     USER(5);
 
     private final int code;

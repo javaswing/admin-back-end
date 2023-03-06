@@ -70,4 +70,28 @@ public enum ErrorCode implements ErrorCodeInterface {
             return this.msg;
         }
     }
+
+    public enum Internal implements ErrorCodeInterface {
+
+        UNKNOWN_ERROR(Module.COMMON, 2, "未知异常, 请查看系统日志");
+        private final int code;
+        private final String msg;
+
+        private static final int BASE_CODE = 40000;
+
+        Internal(Module module, int code, String msg) {
+            this.code = BASE_CODE + module.code() + code;
+            this.msg = msg;
+        }
+
+        @Override
+        public int code() {
+            return this.code;
+        }
+
+        @Override
+        public String message() {
+            return this.msg;
+        }
+    }
 }

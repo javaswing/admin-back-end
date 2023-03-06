@@ -1,6 +1,7 @@
 package com.zxd.admin.core.vo;
 
 import com.zxd.admin.enums.ResponseShowType;
+import com.zxd.admin.exception.ApiException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -55,10 +56,26 @@ public class BaseResponseVO<T> {
                 .build();
     }
 
-
-    public static <T> BaseResponseVO fail(int errorCode, T data, String errorMsg, ResponseShowType showType) {
-        return genBaseResponse(data, false, errorCode, errorMsg, showType);
+    public static <T> BaseResponseVO fail(int errorCode, String errorMsg) {
+        return genBaseResponse(null, false, errorCode, errorMsg, ResponseShowType.ERROR_MESSAGE);
     }
+    public static <T> BaseResponseVO fail(int errorCode) {
+        return genBaseResponse(null, false, errorCode, null, ResponseShowType.ERROR_MESSAGE);
+    }
+
+    public static <T> BaseResponseVO fail(int errorCode, String errorMsg, ResponseShowType showType) {
+        return genBaseResponse(null, false, errorCode, errorMsg, showType);
+    }
+
+    public static <T> BaseResponseVO fail(ApiException exception) {
+        return BaseResponseVO.<T>builder()
+                .errorCode(exception.getErrorCode().code())
+                .errorMessage(exception.getMessage())
+                .success(false)
+                .showType(ResponseShowType.ERROR_MESSAGE)
+                .build();
+    }
+
 
     private static <T> BaseResponseVO<T> genBaseResponse(T data, boolean success, Integer errorCode, String errorMessage, ResponseShowType showType) {
         return BaseResponseVO.<T>builder()
