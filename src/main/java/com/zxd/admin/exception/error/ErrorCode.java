@@ -48,7 +48,8 @@ public enum ErrorCode implements ErrorCodeInterface {
         // ========================= user =======================
         USER_ACCOUNT_IS_NOT_UNIQUE(Module.USER, 13, "用户名已经被其它用户占用"),
         USER_EMAIL_IS_NOT_UNIQUE(Module.USER, 14, "当前邮箱已经被其它用户占用"),
-        USER_MOBILE_IS_NOT_UNIQUE(Module.USER, 14, "当前手机已经被其它用户占用");
+        USER_MOBILE_IS_NOT_UNIQUE(Module.USER, 15, "当前手机已经被其它用户占用"),
+        USER_NOT_EXISTENCE(Module.USER, 15, "当前用户不存在");
 
         private final int code;
         private final String msg;

@@ -15,7 +15,7 @@ public class AddUserCommand {
 
     private Integer gender;
 
-    private String mobile;
+    private String phone;
 
     private String email;
 

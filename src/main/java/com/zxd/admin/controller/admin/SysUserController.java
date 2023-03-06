@@ -1,6 +1,5 @@
 package com.zxd.admin.controller.admin;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zxd.admin.core.base.BaseController;
 import com.zxd.admin.core.vo.BaseResponseVO;
@@ -39,7 +38,7 @@ public class SysUserController extends BaseController {
     @GetMapping("/list")
     public BaseResponseVO<PageVO<SysUserVO>> list(SearchUserQueryDTO query) {
           Page<SysUser> page =  sysUserService.getUserList(query);
-          PageVO result = new PageVO<>(page.getRecords().stream().map(o -> BeanUtil.toBean(o, SysUserVO.class)).collect(Collectors.toList()));
+          PageVO result = new PageVO<>(page.getRecords().stream().map(SysUserVO::new).collect(Collectors.toList()));
           return BaseResponseVO.ok(result);
     }
 
@@ -60,6 +59,14 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "删除用户")
     @DeleteMapping("/userIds")
     public BaseResponseVO<?> remove(@PathVariable List<Long> ids) {
+        sysUserService.deleteUserByIds(ids);
+        return BaseResponseVO.ok();
+    }
+
+    @ApiOperation(value = "重置用户密码")
+    @PutMapping("/{userId}/password/reset")
+    public BaseResponseVO<?> resetPassword(@PathVariable Long userId) {
+        sysUserService.resetPassWord(userId);
         return BaseResponseVO.ok();
     }
 

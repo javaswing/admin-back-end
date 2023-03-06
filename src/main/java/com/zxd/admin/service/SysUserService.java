@@ -8,6 +8,8 @@ import com.zxd.admin.dto.admin.user.UserDetailDTO;
 import com.zxd.admin.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
 * @author tapas
 * @description 针对表【sys_user】的数据库操作Service
@@ -21,6 +23,10 @@ public interface SysUserService extends IService<SysUser> {
     void addUser(AddUserCommand command);
 
     void updateUser(UpdateUserCommand command);
+
+    void deleteUserByIds(List<Long> ids);
+
+    void resetPassWord(Long id);
 
 
     boolean isAccountDuplicated(String account);
