@@ -13,6 +13,7 @@ import com.zxd.admin.vo.admin.SysUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/system/user")
 @RequiredArgsConstructor
+@Slf4j
 public class SysUserController extends BaseController {
 
     private SysUserService sysUserService;
@@ -57,9 +59,9 @@ public class SysUserController extends BaseController {
     }
 
     @ApiOperation(value = "删除用户")
-    @DeleteMapping("/userIds")
-    public BaseResponseVO<?> remove(@PathVariable List<Long> ids) {
-        sysUserService.deleteUserByIds(ids);
+    @DeleteMapping("/{userIds}")
+    public BaseResponseVO<?> remove(@PathVariable List<Long> userIds) {
+        sysUserService.deleteUserByIds(userIds);
         return BaseResponseVO.ok();
     }
 
