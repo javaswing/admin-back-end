@@ -23,7 +23,9 @@ public class SearchUserQueryDTO extends AbstractPageQuery {
         queryWrapper.like(StrUtil.isNotEmpty(account), "account", account)
                 .like(StrUtil.isNotEmpty(mobile), "mobile", mobile)
                 .like(StrUtil.isNotEmpty(email), "email", email)
-                .eq(id != null, "id", id);
+                .eq(id != null, "id", id)
+//                在queryWrapper时 myBatis 不会去掉软删除数据
+                .isNull("delete_at");
 
         this.addTimeCondition(queryWrapper, "create_at");
         this.addSortCondition(queryWrapper);

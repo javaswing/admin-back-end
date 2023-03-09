@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,6 +27,7 @@ public class BaseEntity<T extends Model<?>> extends Model<T> {
     @TableField(value = "update_at", fill = FieldFill.UPDATE)
     private Date updateAt;
 
+    @JsonIgnore
     @TableField(value = "delete_at")
     @TableLogic
     private Date deleteAt;
